@@ -13,3 +13,7 @@ function site_url($relative_url="",$absolute=false) {
         return $website_folder.$relative_url;
     }
 } 
+// função para permitir tradução do site posteriormente
+function __($texto) {
+    return $texto;
+}

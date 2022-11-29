@@ -774,3 +774,11 @@ class Spinner extends Div {
 function SPINNER() {
     return (new Spinner());
 }
+
+function FLEXROW($content=false) {
+    return DIV($content)->class("d-flex flex-row");
+}
+
+function FLEXCOL($content=false) {
+    return DIV($content)->class("d-flex flex-column");
+}

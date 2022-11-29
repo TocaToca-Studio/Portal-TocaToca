@@ -1,6 +1,6 @@
 <?php
 $GEOVANA_RES_PATH="/geovana/res";
-$JQUERY_URL="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js";
+$JQUERY_URL="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js";
 $JQUERY_MASK_URL="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js";
 $POPPER_URL="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js";
 

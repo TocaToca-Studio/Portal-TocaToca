@@ -373,7 +373,18 @@ class Control {
     public function onload($value=false) {
         return $this->attr('onload',$value);
     }
-    public function style($key,$value) {
+    public function img_cover($position="center"){
+        $this->style([
+            'object-position'=>$position,
+            'object-fit'=>'cover'
+        ]);
+        return $this;
+    }
+    public function style($key,$value=false) {
+        if(is_array($key)) {
+            foreach($key as $k=>$v) $this->style($k,$v);
+            return $this;
+        }
         if(!$value && !($value==="0")) {
             return $this->style[$key];
         } else {
@@ -616,7 +627,7 @@ class Div extends Control {
         return $this->class("col-xl-$value");
     }
     function fs($s) {
-        if(is_numeric($s)) {$s.="px";}
+        if(is_numeric($s)) {$s.="em";}
         if($s) {$this->style("font-size",$s);}
         return $this;
     }
@@ -837,6 +848,39 @@ class Div extends Control {
     function text_right() {return $this->class("text-right");}
     function text_left() {return $this->class("text-left");}
     function justify_content_center() {return $this->class("justify-content-center");}
+    function content_center() {
+        return $this->justify_content_center();
+    }
+    function content_start() {
+        return $this->class("justify-content-start");
+    }
+    function content_around() {
+        return $this->class("justify-content-around");
+    }
+    function content_between() {
+        return $this->class("justify-content-between");
+    }
+    function content_end() {
+        return $this->class("justify-content-end");
+    }
+    function items_start() {
+        return $this->class("align-items-start");
+    }
+    function items_around() {
+        return $this->class("align-items-around");
+    }
+    function items_between() {
+        return $this->class("align-items-between");
+    }
+    function items_center() {
+        return $this->class("align-items-center");
+    }
+    function items_end() {
+        return $this->class("align-items-end");
+    }
+    function fill() {
+        return $this->class("flex-fill");
+    }
     function center() {
         return $this->text_center()->class("align-items-center justify-content-center");
     }
@@ -856,6 +900,12 @@ class Div extends Control {
     } 
     function d_flex() {
         return $this->class("d-flex");
+    }
+    function flex() {
+        return $this->class("d-flex");
+    }
+    function nav() {
+        return $this->class("nav");
     }
     function d_inline() {
         return $this->class("d-inline");
@@ -973,6 +1023,22 @@ class Div extends Control {
     public function p($num="auto") {
         return $this->class("p-$num");
     }
+    function head($num="1") {$this->class("h".$num."");return $this;}
+    function disp($num="1") {$this->class("display-$num");return $this;}
+   
+    function h1() {return $this->head("1");}
+    function h2() {return $this->head("2");}
+    function h3() {return $this->head("3");}
+    function h4() {return $this->head("4");}
+    function h5() {return $this->head("5");}
+    function h6() {return $this->head("6");}
+    function h7() {return $this->head("7");}
+    
+    function d1() {return $this->disp("1");}
+    function d2() {return $this->disp("2");}
+    function d3() {return $this->disp("3");}
+    function d4() {return $this->disp("4");}
+ 
 }
 
 class Html extends Control {
@@ -1046,6 +1112,15 @@ class Script extends LinkedSource {
        if($url) {$this->src($url);}
        $this->type("application/javascript");
        $this->set_as_normal_control();
+   }
+   function defer() {
+    $this->attr("defer","true");
+    return $this;
+   }
+
+   function async() {
+    $this->attr("async","true");
+    return $this;
    }
 }
 
@@ -1304,22 +1379,7 @@ class Span extends Div {
        parent::__construct($content);
        $this->tag("span");
    }  
-    function head($num="1") {$this->class("h".$num."");return $this;}
-    function display($num="1") {$this->class("display-$num");return $this;}
-    
-    function h1() {return $this->head("1");}
-    function h2() {return $this->head("2");}
-    function h3() {return $this->head("3");}
-    function h4() {return $this->head("4");}
-    function h5() {return $this->head("5");}
-    function h6() {return $this->head("6");}
-    function h7() {return $this->head("7");}
-    
-    function d1() {return $this->display("1");}
-    function d2() {return $this->display("2");}
-    function d3() {return $this->display("3");}
-    function d4() {return $this->display("4");}
-    
+     
 }
 function SPAN($items=false) {
     return (new Span($items));
@@ -1409,6 +1469,9 @@ class HiperLink extends Div {
    }
    function card_link() {
        return $this->class("card-link");
+   }
+   function nav_link() {
+     return $this->class("nav_link");
    }
 }
 function A($content=false,$url=false) {
@@ -1569,18 +1632,21 @@ function DIV($content=false) {
 }
 
 class Footer extends Div {
-    function __construct() {
-       parent::__construct("footer");
+    function __construct($content) {
+        parent::__construct($content);
+        $this->tag("footer");
    }
 }
 class Header extends Div {
-    function __construct() {
-       parent::__construct("header");
+    function __construct($content) {
+       parent::__construct($content);
+       $this->tag("header");
    }
 }
 class Main extends Div {
-    function __construct() {
-       parent::__construct("main");
+    function __construct($content) {
+        parent::__construct($content);
+        $this->tag("main");
    }
 }
 function PAGE_HEADER($content) {
