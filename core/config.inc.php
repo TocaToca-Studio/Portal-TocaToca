@@ -2,6 +2,10 @@
 # importa a biblioteca geovana.
 require_once __DIR__.'/../geovana/config.php';
 
+require_once __DIR__.'/utils/DB.php';
+require_once __DIR__.'/utils/LoginTool.php';
+require_once __DIR__.'/utils/Utils.php';
+
 /** funcao para obter o url relativo da pasta do site.   */
 function site_url($relative_url="",$absolute=false) {
     $website_folder='/';
