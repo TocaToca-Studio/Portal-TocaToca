@@ -860,6 +860,9 @@ class Div extends Control {
     function content_between() {
         return $this->class("justify-content-between");
     }
+    function content_stretch() {
+        return $this->class("justify-content-stretch");
+    }
     function content_end() {
         return $this->class("justify-content-end");
     }
@@ -871,6 +874,9 @@ class Div extends Control {
     }
     function items_between() {
         return $this->class("align-items-between");
+    }
+    function items_stretch() {
+        return $this->class("align-items-stretch");
     }
     function items_center() {
         return $this->class("align-items-center");
@@ -933,7 +939,7 @@ class Div extends Control {
         return $this->v("",$xs)->v("sm", $sm)
                     ->v("md",$md)->v("lg",$lg)->v("xl",$xl);
     } 
-    function badge()          {return $this->class("badge")->class("badge-secondary");}
+    function BADGE()          {return $this->class("badge");}
 
     function justify(){return $this->class("text-justify");}
     function monospace(){return $this->class("text-monospace");}

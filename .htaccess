@@ -1,0 +1,23 @@
+Options -Indexes
+
+Order deny,allow
+Deny from widgets
+Deny from .git
+
+RewriteEngine on
+# antes de qualquer RewriteCond !!!!!!
+#RewriteRule ^produto\/([^/]+)/?$ produto.php?seo=$1 [L,QSA]
+#RewriteRule ^paginas\/([^/]+)/?$ paginas.php?seo=$1 [L,QSA]
+
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+ 
+# URL amigável pré-configurada 1
+#RewriteCond %{REQUEST_FILENAME}.php -f
+#RewriteRule !.*\.php$ %{REQUEST_FILENAME}.php [L,QSA]
+
+# URL amigável pré-configurada 2
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ([^/]+)/$ $1.php [QSA]
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule (.*)$ $1.php [QSA]

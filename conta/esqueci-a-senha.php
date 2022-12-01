@@ -14,7 +14,7 @@ $page->add([
             FORM([
               TEXTINPUT(__("E-mail"))->name("email")->mb(1), 
               FLEXROW(
-                DIV([I("user")->mx(1),A(__("Voltar à tela de login"))->url(site_url('conta/cadastro.php'))])
+                DIV([I("user")->mx(1),A(__("Voltar à tela de login"))->url(site_url('conta/cadastro'))])
               )->content_end()->py(2),
             
               BUTTON([

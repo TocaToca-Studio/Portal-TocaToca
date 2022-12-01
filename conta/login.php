@@ -14,7 +14,7 @@ $page->add([
               TEXTINPUT(__("E-mail"))->name("email")->mb(1),
               TEXTINPUT(__("Senha"))->name("senha")->password(),
               FLEXROW(
-                DIV([I("lock")->mx(1),A(__("Esqueci minha senha"))->url(site_url('conta/esqueci-a-senha.php'))])
+                DIV([I("lock")->mx(1),A(__("Esqueci minha senha"))->url(site_url('conta/esqueci-a-senha'))])
               )->content_end()->py(2),
               BUTTON(__("Entrar"))->submit()->primary()->mt(1)
             ])

@@ -6,9 +6,8 @@ require_once __DIR__.'/load.php';
 $links_menu=[
     "Sobre nós"=>"#",
     "Nossos projetos"=>"#",
-    "Comunidade"=>"#",
-    "Novidades"=>"#",
-    "Contribuir"=>"#"
+    "Comunidade"=>site_url('comunidade'),
+    "Novidades"=>"#", 
 ];
 
 $ul_menu=UL()->nav()->flex()->items_center();
@@ -29,7 +28,7 @@ $navbar=DIV(
             ),
             $ul_menu->fill()->content_center(),
             
-            A(["Fazer uma doação ",I("heart")])
+            A(["Apoiar ",I("heart")])
             ->url($url)
             ->class("text-danger")
             ->nav_link()->h4()->px(2),
