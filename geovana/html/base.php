@@ -631,6 +631,10 @@ class Div extends Control {
         if($s) {$this->style("font-size",$s);}
         return $this;
     }
+    function gap($fs)  {
+        if(is_integer($fs)) $fs=$fs.'px';
+        return $this->style('gap',$fs);
+    }
     function collapsable($multiple=false) {
         $this->class("collapse");
         if($multiple) {$this->class("multi-collapse");}
@@ -650,6 +654,12 @@ class Div extends Control {
     }
     function expand_collapse() {
         return $this->attr('aria-expanded','true');
+    }
+    function flexcol(){
+        return $this->d_flex()->class("flex-column");
+    }
+    function flexrow(){
+        return $this->d_flex()->class("flex-row");
     }
     function collapse_targets($target_ids,$expand=false) {
         $this->attr('data-toggle','collapse');
@@ -949,7 +959,7 @@ class Div extends Control {
         return $this->v("",$xs)->v("sm", $sm)
                     ->v("md",$md)->v("lg",$lg)->v("xl",$xl);
     } 
-    function BADGE()          {return $this->class("badge");}
+    function badge()          {return $this->class("badge");}
 
     function justify(){return $this->class("text-justify");}
     function monospace(){return $this->class("text-monospace");}

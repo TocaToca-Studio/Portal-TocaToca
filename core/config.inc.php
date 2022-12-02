@@ -19,5 +19,5 @@ function site_url($relative_url="",$absolute=false) {
 } 
 // função para permitir tradução do site posteriormente
 function __($texto) {
-    return $texto;
+    return strval($texto);
 }

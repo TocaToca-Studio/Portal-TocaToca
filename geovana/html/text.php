@@ -116,7 +116,7 @@ class ListRow extends Text {
         return $this->class("active");
     }
 }
-function LI($content,$list_group=false) {
+function LI($content=false,$list_group=false) {
     $li=(new ListRow($content));
     if($list_group) { $li->list_group_item();}
     return $li;

@@ -45,7 +45,7 @@ foreach($links_leftbar as $i) {
             ->add([
                 I($i['icone'])->fs(1.6),
                 T(__($i['titulo']))->fs(1.6)->px(2)->fill(),
-                BADGE(strval($i["badge"]))->warning()->renderizable(intval($i['badge'])>0)
+                BADGE(strval($i["badge"]))->info()->renderizable(intval($i['badge'])>0)
             ])
         )->nav_item()
     );

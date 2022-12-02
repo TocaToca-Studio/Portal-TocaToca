@@ -178,7 +178,7 @@ class Badge extends Div {
     }
 }
 
-function Badge($content=false) {
+function BADGE($content=false) {
     return (new Badge($content));
 }
 
