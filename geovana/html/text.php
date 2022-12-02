@@ -115,12 +115,6 @@ class ListRow extends Text {
     public function active() {
         return $this->class("active");
     }
-    function list_group_item() {
-        return $this->class("list-group-item");
-    }
-    function nav_item() {
-        return $this->class("nav-item");
-    }
 }
 function LI($content,$list_group=false) {
     $li=(new ListRow($content));
@@ -138,9 +132,6 @@ class HtmlList extends RowContainer {
     }
     function inline() {
         return $this->class("list-inline");
-    }
-    function list_group() {
-        return $this->class("list-group");
     }
     function __construct($rows=false) {
        if($rows) {

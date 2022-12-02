@@ -2,11 +2,11 @@
 require_once __DIR__ . '/../../core/config.inc.php';
 
 
-$links_sidebar=[
+$links_leftbar=[
     [
-        "icone"=>"home",
-        "titulo"=>"Linha temporal",
-        "link"=>site_url('comunidade/feed'),
+        "icone"=>"pen-square",
+        "titulo"=>"Mural",
+        "link"=>site_url('comunidade/mural'),
         "badge"=>1
     ],[
         "icone"=>"bell",
@@ -14,7 +14,7 @@ $links_sidebar=[
         "link"=>site_url('comunidade/notificacoes'),
         "badge"=>3
     ],[
-        "icone"=>"envelope",
+        "icone"=>"comments",
         "titulo"=>"Mensagens",
         "link"=>site_url('comunidade/mensagens'),
         "badge"=>1
@@ -36,18 +36,18 @@ $links_sidebar=[
     ]
 ];
 
-$ul_sidebar=UL()->py(3)->nav()->flex()->items_stretch()->class("flex-column");
-foreach($links_sidebar as $i) {
-    $ul_sidebar->add(
+$ul_leftbar=UL()->py(3)->nav()->flex()->items_stretch()->class("flex-column");
+foreach($links_leftbar as $i) {
+    $ul_leftbar->add(
         LI(
             A()->decoration_none()->url($url)->nav_link()->flex()->items_center()->w_100()
             ->py(1)
             ->add([
-                I($i['icone'])->lg(),
+                I($i['icone'])->fs(1.6),
                 T(__($i['titulo']))->fs(1.6)->px(2)->fill(),
                 BADGE(strval($i["badge"]))->warning()->renderizable(intval($i['badge'])>0)
             ])
         )->nav_item()
     );
 }
-$sidebar=$ul_sidebar;
+$leftbar=$ul_leftbar;

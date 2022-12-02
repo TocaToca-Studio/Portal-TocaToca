@@ -667,6 +667,16 @@ class Div extends Control {
         }
         return $this;
     }
+
+    function list_group() {
+        return $this->class("list-group");
+    }
+    function list_group_item() {
+        return $this->class("list-group-item");
+    }
+    function nav_item() {
+        return $this->class("nav-item");
+    }
     function rounded() {
         return $this->class("rounded");
     }

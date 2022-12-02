@@ -169,5 +169,45 @@ class Utils {
     public static function limit_text($text,$limit=50) {
         return strlen($text) > $limit ? substr($text,0,$limit)."..." : $text;
     }
+    public static function time_elapsed_string($timestamp, $full = false) {
+        $now = new DateTime();
+        $ago = new DateTime();
+        $ago->setTimestamp($timestamp);
+        $diff = $now->diff($ago);
+    
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+    
+        $string_single = array(
+            'y' => 'ano',
+            'm' => 'mes',
+            'w' => 'semana',
+            'd' => 'dia',
+            'h' => 'hora',
+            'i' => 'minuto',
+            's' => 'segundo',
+        );  
+        $string_plural = array(
+            'y' => 'anos',
+            'm' => 'meses',
+            'w' => 'semanas',
+            'd' => 'dias',
+            'h' => 'horas',
+            'i' => 'munutos',
+            's' => 'segundos',
+        );
+        foreach($string_single as $k=>$s) $string_single[$k]=__($s);
+        foreach($string_plural as $k=>$s) $string_plural[$k]=__($s);
+
+        $parts=[];
+        foreach ($string_single as $k => $v) {
+            if ($diff->$k) {
+                $parts[]= $diff->$k . ' ' . ($diff->$k > 1 ? $string_plural[$k] : $string_single[$k]);
+            } 
+        }
+    
+        if (!$full) $parts = array_slice($parts, 0, 1);
+        return $parts ? implode(', ', $parts) . ' '.__('atrás') : __('agora mesmo');
+    }
     
 }
