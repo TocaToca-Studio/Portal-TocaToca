@@ -238,6 +238,9 @@ class TextInput extends TextInputBase {
     function search() {
         return $this->type("search");
     } 
+    function from_post() {
+        return $this->value(_post($this->attr('name')));
+    }
     function telephone() {
         return $this->type("tel");
     }

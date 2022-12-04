@@ -1,2 +1,5 @@
-#arquivo que contém variaveis sensíveis do banco de dados
-dbconfig.php
+#arquivo que contém variaveis sensíveis do sistema
+config.php
+
+#cache de thumbnails
+thumb/cache/*

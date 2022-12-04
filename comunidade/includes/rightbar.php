@@ -7,4 +7,4 @@ require_once __DIR__.'/panelinhas.php';
 $rightbar=FLEXCOL()->add([
     $murais_populares,
     $panelinhas->mt(3)
-])->my(2);
+]);

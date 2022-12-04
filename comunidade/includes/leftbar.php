@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../../core/config.inc.php';
-
-
+require_once __DIR__.'/base.php';
 $links_leftbar=[
     [
         "icone"=>"pen-square",
@@ -36,18 +35,39 @@ $links_leftbar=[
     ]
 ];
 
-$ul_leftbar=UL()->py(3)->nav()->flex()->items_stretch()->class("flex-column");
+$ul_leftbar=UL()->nav()->flex()->items_stretch()->class("flex-column");
 foreach($links_leftbar as $i) {
     $ul_leftbar->add(
         LI(
             A()->decoration_none()->url($url)->nav_link()->flex()->items_center()->w_100()
             ->py(1)
             ->add([
-                I($i['icone'])->fs(1.6),
-                T(__($i['titulo']))->fs(1.6)->px(2)->fill(),
+                I($i['icone'])->fs(1.3),
+                T(__($i['titulo']))->fs(1.3)->px(2)->fill(),
                 BADGE(strval($i["badge"]))->info()->renderizable(intval($i['badge'])>0)
             ])
         )->nav_item()
     );
 }
-$leftbar=$ul_leftbar;
+$leftbar=[
+    CARD()->add([
+        CARDHEADER([
+            FLEXROW()->items_center()->add([
+                IMG(site_url('assets/img/user.png'),70,70)->img_cover(),
+                DIV([ 
+                    A($info_usuario['nome'])->decoration_none()->url(site_url('comunidade/perfil/'.$info_usuario['nick']))->h5(),
+                    DIV([
+                        
+                    ])->w_100()->pb(1),
+                    FLEXROW([ 
+                        A([I("heart"),SPACE,__(40)])->url("#")->fs(0.9)->muted()->decoration_none(),
+                        A(["Sair",SPACE,I("sign-out-alt")])->url(site_url('conta/logout'))->muted()->decoration_none()
+                    ])->content_between()//->items_center()
+                ])->p(1)->fill()
+            ])
+        ])->p(2),
+          CARDBODY([
+            $ul_leftbar 
+        ])
+    ]),
+];

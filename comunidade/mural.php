@@ -1,16 +1,26 @@
 <?php
-require_once __DIR__ . '/../includes/header.php';
-require_once __DIR__ . '/../includes/footer.php';
+require_once __DIR__ . '/includes/base.php';
 
-require_once __DIR__ . '/includes/leftbar.php';
-require_once __DIR__ . '/includes/rightbar.php';
+// BACKEND
+$id=intval(_get('id'));
+if(!$id) $id=0;
 
+/*
+$bilhetes=db()->fetch_all(
+  "SELECT b.id,b.texto,b.criado,u.nome,u.nick,u.id as id_usuario
+  FROM bilhete b
+  INNER JOIN  usuario u ON b.criador=u.id
+  WHERE fk_mural=$id OR $id=0
+  ORDER BY criado DESC"
+); 
+*/
 
+/// CODIGO DA PAGINA
 $sample_post=[
   "date"=>time()-(3600*24), 
   "content"=>"Simple infinite lore ipsum sit amet i dont care this is a testing only",
   "author"=>"@alicezolinger",
-  "stars"=>5,
+  "likes"=>5,
   "saves"=>2
 ];
 function drawpost($post) {
@@ -27,11 +37,11 @@ function drawpost($post) {
         ]),
         DIV($post['content'])->w_100()->pb(1),
         FLEXROW([ 
-          A([I("star"),SPACE,__($post['stars'])])->url("#")->muted()->fs(0.8)->decoration_none(),
+          A([I("heart"),SPACE,__($post['likes'])])->url("#")->muted()->fs(0.8)->decoration_none(),
           A([I("bookmark"),SPACE,__($post['saves'])])->url("#")->muted()->fs(0.8)->decoration_none(),
         ])->gap(10)->content_end()
       ])->pl(1)
-    ]), 
+    ])
   ]);
 }
 $posts=range(0,10);
@@ -48,11 +58,7 @@ $page->add([
   $header,
   PAGE_MAIN([
     CONTAINER([
-      NAVBAR("Comunidade")->add([
-        FORM()->add([
-          INPUTGROUP(false,SEARCHINPUT("Pesquisar"),BUTTON(I("search"))->primary())
-        ])
-      ]),
+      $navbar_comunidade,
       ROW()->items_stretch()->add([
         COL(@$leftbar)->xs(12)->lg(3),
         COL([
@@ -60,7 +66,7 @@ $page->add([
             FORM()->add([
               TEXTAREA(__("no que está pensando?")),
               BUTTON([__("Pendurar bilhetinho!"),SPACE,I("sticky-note")])->primary()->block()
-            ])->mt(1)
+            ])
           ]),
           $postwall,
           PAGINATION('strval',10000,10,4)

@@ -13,9 +13,9 @@ session_start();
 class LoginTool {
     
     /** Chave secreta usada criptografar tokens JWT */
-    public const SECRET_KEY='tr1web10@';
+    public const SECRET_KEY=MASTER_PASSWORD;
     
-    /** coloquei esse nome genério no cookie de login justamente para ninguém saber que esse é o cookie de login */
+    /** coloquei esse nome genérico no cookie de login justamente para ninguém saber que esse é o cookie de login */
     public const COOKIE_SESSION_NAME="javascript_html_data";
     /**
      *  checa se o usuario está logado caso esteja retorna o id que está no token

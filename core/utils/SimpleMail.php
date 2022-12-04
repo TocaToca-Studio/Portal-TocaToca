@@ -41,7 +41,7 @@ class SimpleMail {
 	// mail content type (text/html or text/plain)
 	public $type = 'text/html';
 	// mail encoding
-	public $encoding = 'ISO-8859-1';
+	public $encoding = 'UTF-8';
 
 	// error message
 	public $error;
@@ -50,11 +50,11 @@ class SimpleMail {
 
 /////////////////////////////////////////////////////////////////
     public function message($html):SimpleMail {
-        $this->message=utf8_decode($html);
+        $this->message=$html;
         return $this;
     }
     public function subject($text):SimpleMail {
-        $this->subject=utf8_decode($text);
+        $this->subject=$text;
         return $this;
     }
     public function __construct($host, $port, $security = 'ssl')
@@ -159,14 +159,14 @@ class SimpleMail {
 			if ($code > -1 && $this->parse_result($socket, $code) === false) {
 				$this->error .= ' (' . $command . ')';
 				
-			var_dump($this);
+			var_dump($this->error);
 				return false;
 			}
 
 			if ($command == 'STARTTLS' && stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) === false) {
 				$this->error .= 'Unable to start TLS encryption. (' . $command . ')';
 
-				var_dump($this);
+				var_dump($this->error);
 				return false;
 			}
 		}
