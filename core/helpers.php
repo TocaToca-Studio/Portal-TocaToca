@@ -21,10 +21,12 @@ function form_errors() {
     global $errors;
     return $errors;
 }
+
 function form_error($text) {
     global $errors; 
     $errors[]=$text;
 } 
+
 function has_form_errors() {
     global $errors; 
     return count($errors);

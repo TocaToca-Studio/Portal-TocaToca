@@ -3,8 +3,11 @@ require_once __DIR__.'/../core/config.inc.php';
 LoginTool::deny_logged_users();
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/footer.php';
+if(_post('senha')!=_post('confirmacao_senha')) {
+  form_error(__("As senhas inseridas não coincidem!"));
+}
 
-if(_post('nick')) { 
+if(_post('nick') || !has_form_errors()) { 
   /* TODO: implementar todos os possiveis caso de dados invalidos 
    e fazer a verificação aqui no servidor */
    

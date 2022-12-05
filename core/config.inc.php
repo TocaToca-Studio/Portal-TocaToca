@@ -46,7 +46,7 @@ function simplemail():SimpleMail {
     global $SMTP_HOST,$SMTP_PORT,$SMTP_PASSWORD,$SMTP_MAIL;
     $mail = new SimpleMail($SMTP_HOST, $SMTP_PORT, 'tls');
     $mail->auth($SMTP_MAIL, $SMTP_PASSWORD)
-        ->from($SMTP_MAIL, "DEPAULA PORTAL USUARIO");
+        ->from($SMTP_MAIL, "Portal TocaToca");
         
     return $mail;
 }

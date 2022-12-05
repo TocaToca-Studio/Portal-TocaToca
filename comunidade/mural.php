@@ -5,7 +5,6 @@ require_once __DIR__ . '/includes/base.php';
 $id=intval(_get('id'));
 if(!$id) $id=0;
 
-/*
 $bilhetes=db()->fetch_all(
   "SELECT b.id,b.texto,b.criado,u.nome,u.nick,u.id as id_usuario
   FROM bilhete b
@@ -13,42 +12,34 @@ $bilhetes=db()->fetch_all(
   WHERE fk_mural=$id OR $id=0
   ORDER BY criado DESC"
 ); 
-*/
 
 /// CODIGO DA PAGINA
-$sample_post=[
-  "date"=>time()-(3600*24), 
-  "content"=>"Simple infinite lore ipsum sit amet i dont care this is a testing only",
-  "author"=>"@alicezolinger",
-  "likes"=>5,
-  "saves"=>2
-];
-function drawpost($post) {
+
+function desenhar_bilhete($bilhete) {
   return DIV()->list_group_item()->add([
     FLEXROW()->items_center()->add([
       IMG(site_url('assets/img/user.png'),70,70)->img_cover(),
       DIV([ 
         FLEXROW()->fill()->content_between()->add([ 
-          A($post['author'])->decoration_none()->url("#")->h5(),
+          A($bilhete['author'])->decoration_none()->url("#")->h5(),
           T([
-            Utils::time_elapsed_string($post['date']),
+            Utils::time_elapsed_string($bilhete['date']),
             I("thumbtack")->px(1)
           ])->muted()
         ]),
-        DIV($post['content'])->w_100()->pb(1),
+        DIV($bilhete['content'])->w_100()->pb(1),
         FLEXROW([ 
-          A([I("heart"),SPACE,__($post['likes'])])->url("#")->muted()->fs(0.8)->decoration_none(),
-          A([I("bookmark"),SPACE,__($post['saves'])])->url("#")->muted()->fs(0.8)->decoration_none(),
+          A([I("heart"),SPACE,__(@$bilhete['likes'])])->url("#")->muted()->fs(0.8)->decoration_none(),
+          A([I("bookmark"),SPACE,__(@$bilhete['saves'])])->url("#")->muted()->fs(0.8)->decoration_none(),
         ])->gap(10)->content_end()
       ])->pl(1)
     ])
   ]);
-}
-$posts=range(0,10);
-if(count($posts)) {
+} 
+if(count($bilhetes)) {
   $postwall=DIV()->list_group()->my(2);
-  foreach($posts as $i) {
-    $postwall->add(drawpost($sample_post));
+  foreach($bilhetes as $b) {
+    $postwall->add(desenhar_bilhete($b));
   }
 } else {
   $postwall=ALERT(__("Ninguém pendurou um bilhetinho aqui ainda :( seja o primeiro!"))->warning()->my(2);
