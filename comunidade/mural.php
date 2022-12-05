@@ -2,16 +2,21 @@
 require_once __DIR__ . '/includes/base.php';
 
 // BACKEND
-$id=intval(_get('id'));
-if(!$id) $id=0;
+$id=@intval(_get('id'));
+$pagina=@intval(_get('pagina'));
+if(!$id) $id=0; 
+if(!$id) $pagina=1;
 
-$bilhetes=db()->fetch_all(
-  "SELECT b.id,b.texto,b.criado,u.nome,u.nick,u.id as id_usuario
-  FROM bilhete b
-  INNER JOIN  usuario u ON b.criador=u.id
-  WHERE fk_mural=$id OR $id=0
-  ORDER BY criado DESC"
-); 
+$itens_por_pagina=50;
+
+$sql="SELECT b.id,b.texto,b.criado,u.nome,u.nick,u.id as id_usuario
+        FROM bilhete b
+        INNER JOIN  usuario u ON b.criador=u.id
+        WHERE fk_mural=$id OR $id=0
+        ORDER BY criado DESC";
+
+$results=paginar_query($sql,$pagina,$itens_por_pagina);
+$bilhetes=$results['resultados']; 
 
 /// CODIGO DA PAGINA
 
@@ -45,6 +50,11 @@ if(count($bilhetes)) {
   $postwall=ALERT(__("Ninguém pendurou um bilhetinho aqui ainda :( seja o primeiro!"))->warning()->my(2);
 }
 
+function paginacao_mural($page) {
+  global $id;
+  return site_url('comunidade/mural?'.http_build_query(['id'=>$id,'pagina'=>$page]));
+}
+
 $page->add([
   $header,
   PAGE_MAIN([
@@ -60,7 +70,7 @@ $page->add([
             ])
           ]),
           $postwall,
-          PAGINATION('strval',10000,10,4)
+          PAGINATION('paginacao_mural',$results['total'],$itens_por_pagina,$pagina)
         ])->xs(12)->lg(6)->class("px-lg-1"),
         COL(@$rightbar)->xs(12)->lg(3) 
       ])->style('min-height','600px')

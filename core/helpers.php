@@ -97,3 +97,34 @@ if (!function_exists('str_contains')) {
         return $needle !== '' && mb_strpos($haystack, $needle) !== false;
     }
 }
+
+// Shortens a number and attaches K, M, B, etc. accordingly
+function number_shorten($number, $precision = 0) {
+    $number=intval($number);
+    $divisors = ['','K','M','B','T'];    
+
+    // Loop through each $divisor and find the
+    // lowest amount that matches
+    foreach ($divisors as $divisor => $shorthand) {
+        $divisor=pow(1000, $divisor);
+        if (abs($number) < ( $divisor * 1000)) {
+            // We found a match!
+            break;
+        }
+    }
+
+    // We found our match, or there were no matches.
+    // Either way, use the last defined value for $divisor.
+    return number_format($number / $divisor, $precision) . $shorthand;
+}
+
+function paginar_query($query,$pagina=1,$itens_por_pagina=50) {
+    $total_de_resultados=db()->fetch_value("SELECT COUNT(*) as total FROM ($query) as query");
+    $offset=$itens_por_pagina*($pagina-1);
+    $resultados=db()->fetch_all("$query LIMIT $itens_por_pagina OFFSET $offset");
+
+    return [
+        'total'=>$total_de_resultados,
+        'resultados'=>$resultados
+    ];
+}

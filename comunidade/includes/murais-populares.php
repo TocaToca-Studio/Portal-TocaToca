@@ -10,7 +10,7 @@ foreach(range(0,4) as $m) {
         ->url("#")
         ->add([
             DIV([I("hashtag"),SPACE,__("Example mural")]),
-            BADGE("5")->warning()
+            BADGE(number_shorten("500000"))->warning()
         ])
     ])->mt(1);
 
