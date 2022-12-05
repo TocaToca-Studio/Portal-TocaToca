@@ -47,7 +47,7 @@ function thumb($url,$width=120,$height=false) {
     if($height) $q['height']=$height; 
     return site_url("thumb/thumb.php?".http_build_query($q));
 }
-function formatar_data($mysql_date) {
+function formatar_data($mysql_date) { 
     ($dt=new Datetime())->setTimestamp(strtotime($mysql_date));
     return $dt->format("Y-m-d H:i");
 }
@@ -127,4 +127,19 @@ function paginar_query($query,$pagina=1,$itens_por_pagina=50) {
         'total'=>$total_de_resultados,
         'resultados'=>$resultados
     ];
+}
+
+const TIPO_PUB = [
+    "mural"=>1,
+    "panelinha"=>2,
+    "mensagem"=>3,
+    "bilhete"=>4,
+    "perfil"=>5,
+];
+ 
+function total_curtidas($tipo,$id) {
+    $id=intval($id);
+    return (int)db()->fetch_value(
+        "SELECT COUNT(*) FROM curtidas c WHERE c.tipo=$tipo AND c.fk_item='$id'"
+    );
 }

@@ -83,7 +83,6 @@ class Usuario extends Model {
                 'RECUPERAR SENHA'.'</a>')
                 ->send(); 
        
-        return $res;
-
+        return $res; 
     }  
 }

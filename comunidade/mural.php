@@ -7,9 +7,9 @@ $pagina=@intval(_get('pagina'));
 if(!$id) $id=0; 
 if(!$id) $pagina=1;
 
-$itens_por_pagina=50;
+$itens_por_pagina=20;
 
-$sql="SELECT b.id,b.texto,b.criado,u.nome,u.nick,u.id as id_usuario
+$sql="SELECT b.id,b.texto,b.criado,u.nome as autor,u.nick,u.id as id_usuario
         FROM bilhete b
         INNER JOIN  usuario u ON b.criador=u.id
         WHERE fk_mural=$id OR $id=0
@@ -21,23 +21,24 @@ $bilhetes=$results['resultados'];
 /// CODIGO DA PAGINA
 
 function desenhar_bilhete($bilhete) {
+  $likes=total_curtidas(TIPO_PUB['bilhete'],$bilhete['id']);
   return DIV()->list_group_item()->add([
     FLEXROW()->items_center()->add([
       IMG(site_url('assets/img/user.png'),70,70)->img_cover(),
-      DIV([ 
+      DIV()->pl(1)->fill()->add([ 
         FLEXROW()->fill()->content_between()->add([ 
-          A($bilhete['author'])->decoration_none()->url("#")->h5(),
+          A($bilhete['autor'])->decoration_none()->url("#")->h5(),
           T([
-            Utils::time_elapsed_string($bilhete['date']),
+            Utils::time_elapsed_string($bilhete['criado']),
             I("thumbtack")->px(1)
           ])->muted()
         ]),
-        DIV($bilhete['content'])->w_100()->pb(1),
+        DIV($bilhete['texto'])->w_100()->pb(1),
         FLEXROW([ 
-          A([I("heart"),SPACE,__(@$bilhete['likes'])])->url("#")->muted()->fs(0.8)->decoration_none(),
+          A([I("heart"),SPACE,number_shorten($likes)])->url("#")->muted()->fs(0.8)->decoration_none(),
           A([I("bookmark"),SPACE,__(@$bilhete['saves'])])->url("#")->muted()->fs(0.8)->decoration_none(),
         ])->gap(10)->content_end()
-      ])->pl(1)
+      ])
     ])
   ]);
 } 

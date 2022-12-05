@@ -172,7 +172,9 @@ class Utils {
     public static function time_elapsed_string($timestamp, $full = false) {
         $now = new DateTime();
         $ago = new DateTime();
-        $ago->setTimestamp($timestamp);
+        if(is_string($timestamp));
+        $timestamp=strtotime($timestamp);
+        $ago->setTimestamp(intval($timestamp));
         $diff = $now->diff($ago);
     
         $diff->w = floor($diff->d / 7);
@@ -193,7 +195,7 @@ class Utils {
             'w' => 'semanas',
             'd' => 'dias',
             'h' => 'horas',
-            'i' => 'munutos',
+            'i' => 'minutos',
             's' => 'segundos',
         );
         foreach($string_single as $k=>$s) $string_single[$k]=__($s);
