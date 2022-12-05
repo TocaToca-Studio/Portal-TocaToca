@@ -1,5 +1,5 @@
 #arquivo que contém variaveis sensíveis do sistema
-config.php
 
 #cache de thumbnails
 thumb/cache/*
+core/config.php
