@@ -8,7 +8,7 @@ $newsletter=DIV()->w_100()->py(4)->bg_dark()->white()->add([
             COL([
                 FLEXROW([
                     DIV(I("envelope")->scale(4)),
-                    DIV("Cadastre seu e-mail e fique por dentro das últimas novidades e informações exclusivas!")->fill()->px(2)->h4()
+                    DIV("Cadastre seu e-mail e fique por dentro das últimas novidades!")->fill()->px(2)->h4()
                 ])->items_center()
             ])->xs(12)->lg(6),
             COL([
