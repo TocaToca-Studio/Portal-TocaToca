@@ -27,5 +27,5 @@ $footer=PAGE_FOOTER([
             ])->grid(12,false,false,3)
             
         ])
-    )
-])->bg_dark()->py(4);
+    )->py(4)
+])->bg_dark();

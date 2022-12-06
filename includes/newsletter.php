@@ -2,14 +2,14 @@
 require_once __DIR__.'/../core/config.inc.php';
 
 
-$newsletter=DIV()->w_100()->bg_dark()->white()->add([
+$newsletter=DIV()->w_100()->py(4)->bg_dark()->white()->add([
     CONTAINER([
         ROW([
             COL([
                 FLEXROW([
-                    I("envelope")->s(4),
+                    DIV(I("envelope")->scale(4)),
                     DIV("Cadastre seu e-mail e fique por dentro das últimas novidades e informações exclusivas!")->fill()->px(2)->h4()
-                ])
+                ])->items_center()
             ])->xs(12)->lg(6),
             COL([
                 FORM()->post()->add([
