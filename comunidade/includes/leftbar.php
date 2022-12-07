@@ -39,7 +39,8 @@ $ul_leftbar=UL()->nav()->flex()->items_stretch()->class("flex-column");
 foreach($links_leftbar as $i) {
     $ul_leftbar->add(
         LI(
-            A()->decoration_none()->url($url)->nav_link()->flex()->items_center()->w_100()
+            A()->decoration_none()->url($url)->nav_link()->mb(0)->py(1)->px(0)
+            ->flex()->items_center()->w_100()
             ->py(1)
             ->add([
                 I($i['icone'])->fs(1.3),

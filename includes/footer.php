@@ -20,12 +20,12 @@ $footer=PAGE_FOOTER([
             COL([
                 T("Redes sociais")->h4(),
                 UL([
-                    LI(A(I("whatsapp",true)->h3()->white())->url("#")),
-                    LI(A(I("instagram",true)->h3()->white())->url("#")),
-                    LI(A(I("facebook",true)->h3()->white())->url("#"))
+                    LI(A(I("whatsapp",true)->h3())->url("#")),
+                    LI(A(I("instagram",true)->h3())->url("#")),
+                    LI(A(I("facebook",true)->h3())->url("#"))
                 ])->nav()->flex()->style('gap','10px')->py(3)
             ])->grid(12,false,false,3)
             
         ])
     )->py(4)
-])->bg_dark();
+]) ;

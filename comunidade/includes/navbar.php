@@ -5,4 +5,4 @@ $navbar_comunidade=NAVBAR("Comunidade")->add([
     FORM()->add([
       INPUTGROUP(false,SEARCHINPUT("Pesquisar"),BUTTON(I("search"))->primary())
     ])
-])->mb(2);
+])->mb(2)->bg_white();

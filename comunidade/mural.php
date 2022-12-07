@@ -5,7 +5,7 @@ require_once __DIR__ . '/includes/base.php';
 $id=@intval(_get('id'));
 $pagina=@intval(_get('pagina'));
 if(!$id) $id=0; 
-if(!$id) $pagina=1;
+if(!$pagina) $pagina=1;
 
 $itens_por_pagina=20;
 
@@ -66,7 +66,8 @@ $page->add([
         COL([
           DIV()->add([
             FORM()->add([
-              TEXTAREA(__("no que está pensando?")),
+              TEXTAREA(__("no que está pensando?"))->rows(3)
+              ,
               BUTTON([__("Pendurar bilhetinho!"),SPACE,I("sticky-note")])->primary()->block()
             ])
           ]),
@@ -77,5 +78,5 @@ $page->add([
       ])->style('min-height','600px')
     ]) 
   ]) ,
-  $footer
+  $footer,
 ])->send();

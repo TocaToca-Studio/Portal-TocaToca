@@ -2,7 +2,7 @@
 require_once __DIR__.'/../core/config.inc.php';
 
 
-$newsletter=DIV()->w_100()->py(4)->bg_dark()->white()->add([
+$newsletter=DIV()->w_100()->py(4)->bg_primary()->white()->add([
     CONTAINER([
         ROW([
             COL([

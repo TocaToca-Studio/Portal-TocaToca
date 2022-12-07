@@ -1,0 +1,8 @@
+body {
+    background-image:url('/assets/img/fundo_caderno.jpg');
+    background-size:600px;
+    background-position: 0px 23px;
+} 
+header ul.nav li.nav-item a.nav-link:hover {
+    color: #ffc107 !important;
+}

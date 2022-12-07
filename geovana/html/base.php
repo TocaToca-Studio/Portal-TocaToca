@@ -1497,7 +1497,7 @@ class HiperLink extends Div {
        return $this->class("card-link");
    }
    function nav_link() {
-     return $this->class("nav_link");
+     return $this->class("nav-link");
    }
 }
 function A($content=false,$url=false) {

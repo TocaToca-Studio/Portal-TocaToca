@@ -6,6 +6,7 @@ $_panelinhas=[];
 foreach(range(0,4) as $m) {
     $_panelinhas[]=LI()->nav_item()->add([
         A()->px(2)->nav_link()->decoration_none()->h5()
+        ->mb(0)->py(1)->px(2)
         ->flexrow()->items_center()->content_between()
         ->url("#")
         ->add([
