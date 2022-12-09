@@ -8,8 +8,7 @@ $footer=PAGE_FOOTER([
         ROW([
             COL([
                 T("Institucional")->h4()
-            ])->grid(12,false,false,3),
-
+            ])->grid(12,false,false,3), 
             COL([
                 T("Projetos")->h4()
             ])->grid(12,false,false,3),

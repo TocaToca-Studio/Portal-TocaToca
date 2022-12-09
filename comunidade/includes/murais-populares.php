@@ -25,6 +25,9 @@ foreach($dbmurais as $m) {
 
 }
 
+if(!count($murais_populares)) {
+    $murais_populares=ALERT(__("Ainda não existe nenhum mural no site :("))->warning();
+}
 $murais_populares=CARD()->add([
     CARDHEADER(T([I("pen-square"),SPACE,__("Murais populares")])->h5()),
     UL()->nav()->flexcol()->add([
