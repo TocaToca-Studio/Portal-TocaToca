@@ -129,6 +129,12 @@ function paginar_query($query,$pagina=1,$itens_por_pagina=50) {
     ];
 }
 
+function json_response($data) {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($data);
+    exit;
+}
+
 const TIPO_PUB = [
     "mural"=>1,
     "panelinha"=>2,

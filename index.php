@@ -8,7 +8,7 @@ $page->add([
             COL([
                 IMG(site_url('assets/img/logo.png'),300),
                 BR,
-                T("Site em construção!")->d1()
+                T("Site em construção!")->d3()
             ])->xs(12)->center()->py(5)
         ])
     ])

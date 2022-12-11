@@ -1,7 +1,6 @@
 <?php 
-require_once __DIR__.'/load.php';
-
- /** SLICK */
+require_once __DIR__.'/load.php'; 
+/** SLICK */
  
 $links_menu=[
     "Sobre nós"=>"#",
@@ -17,9 +16,7 @@ foreach($links_menu as $text=>$url) {
             A($text)->url($url)->nav_link()->mb(0)->h4()->px(2)->decoration_none()
         )->nav_item()
     );
-}
- 
- 
+} 
 $navbar=DIV(
     CONTAINER()->add([ 
         FLEXROW([
@@ -29,10 +26,9 @@ $navbar=DIV(
             $ul_menu->fill()->content_center(),
             
             A(["Apoiar ",I("heart")])
-            ->url($url)
-            ->class("text-danger")
-            ->nav_link()->h4()->px(2),
-
+                ->url($url)
+                ->class("text-danger")
+                ->nav_link()->h4()->px(2), 
         ])->content_between()->w_100()->items_center(),
     ])
 )->w_100()->mb(1) ;

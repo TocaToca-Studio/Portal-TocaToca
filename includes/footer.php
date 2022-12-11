@@ -2,7 +2,8 @@
 require_once __DIR__.'/../core/config.inc.php';
 
 require_once __DIR__.'/newsletter.php';
-$footer=PAGE_FOOTER([
+$footer=[
+    PAGE_FOOTER([
     $newsletter,
     CONTAINER(
         ROW([
@@ -36,4 +37,6 @@ $footer=PAGE_FOOTER([
             ])
         ])
     )->py(4)
-]) ;
+]),
+$modais
+];
