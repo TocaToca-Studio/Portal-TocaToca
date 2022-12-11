@@ -13,7 +13,23 @@ foreach(glob(__DIR__.'/assets/img/banners/*') as $img_path) {
 $page->add([
     $header,
     PAGE_MAIN([
-        $div_banners
+        DIV()->w_100()->relative()->add([
+            $div_banners,
+            DIV()->w_100()->h_100()->absolute(0)->flexcol()
+            ->content_center()->class("align-items-start align-items-lg-center")
+            ->bg_color("#00000066")
+            ->add([
+                DIV(__("Os jogos que você estava esperando!"))
+                ->d3()->warning()->bold()
+                ->style('text-shadow','3px 3px black'),
+                DIV("TocaToca é uma comunidade criada para tornar realidade um sonho.")->white()->fs(2)->normal()
+                ->style('text-shadow','2px 2px black'),
+                FLEXROW([
+                    A(__("Saiba mais"))->url(site_url('sobre-nos'))->class("btn btn-outline-light")->bold(),
+                    A(__("Junte-se a nós"))->url(site_url("comunidade"))->class("junte_se")->class("btn btn-outline-warning")->bold(),
+                ])->gap(10)
+            ])
+        ])
     ]),
     $footer
 ])->send();
