@@ -7,7 +7,7 @@ if(_post('senha')!=_post('confirmacao_senha')) {
   form_error(__("As senhas inseridas não coincidem!"));
 }
 
-if(_post('nick') || !has_form_errors()) { 
+if(_post('nick') && !has_form_errors()) { 
   /* TODO: implementar todos os possiveis caso de dados invalidos 
    e fazer a verificação aqui no servidor */
    
