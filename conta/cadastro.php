@@ -32,8 +32,8 @@ if(_post('nick') && !has_form_errors()) {
       (new Usuario($novo_id))->update_infos([
         "nick"=>_post('nick'),
         "nome"=>_post('nome'),
-        "clube"=>_post('clube'),
-        "cidade"=>_post('cidade'),
+       /* "clube"=>_post('clube'),
+        "cidade"=>_post('cidade'),*/
       ]); 
       Utils::redirect(site_url("comunidade"));
     } else {
@@ -68,13 +68,13 @@ $page->add([
               TEXTINPUT(__("Seu nome"))
                 ->name("nome")->from_post()
                 ->minlength(3)->required(),
-
+              /*
               TEXTINPUT(__("Nome do seu clube")) 
               ->name("clube")->from_post(),
 
               TEXTINPUT(__("Sua cidade")) 
               ->name("cidade")->from_post(),
-
+              */
               TEXTINPUT(__("Senha"))->name("senha")->from_post()
               ->password()->minlength(6)->required(),
 
