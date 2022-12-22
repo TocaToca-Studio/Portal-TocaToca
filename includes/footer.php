@@ -26,7 +26,7 @@ $footer=[
                 ])->nav()->flex()->style('gap','10px')->py(3)
             ])->grid(12,false,false,3)
         ])
-    )->py(4),
+    )->py(4)->renderizable(false),
     DIV()->w_100()->add([
         CONTAINER([
             FLEXROW()->w_100()->content_between()->items_center()->py(3)
@@ -41,7 +41,7 @@ $footer=[
                 )
             ])
         ])
-    ])->bg_primary()->white()
+    ]) 
 ]),
 $modais
 ];

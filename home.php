@@ -10,6 +10,9 @@ foreach(glob(__DIR__.'/assets/img/banners/*') as $img_path) {
     ]);
 }
 
+$secao_noticias=DIV();
+
+
 $page->add([
     $header,
     PAGE_MAIN([
