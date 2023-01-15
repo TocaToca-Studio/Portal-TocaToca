@@ -1,18 +1,22 @@
 <?php
 require_once __DIR__.'/../core/config.inc.php';
-
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/footer.php';
+
+
 
 $email=		filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
 $password=  _post('senha');
 $token=		_post('token'); 
 
+
 $redir=""; 
 
 if(count($_POST)) { 
-	if($email && $password) { 
-		// $is_token_valid=Utils::validate_recaptcha($token,$RECAPTHA_SECRET_KEY);
+  die(json_encode($_POST));
+  //	$is_token_valid=Utils::validate_recaptcha($token,$RECAPTHA_SECRET_KEY);
+
+  if($email && $password) { 
 		$is_token_valid=true;
 		$id=Usuario::try_login($email,$password);
 		
@@ -45,17 +49,24 @@ $page->add([
             A(__("cadastre-se"))->url(site_url('conta/cadastro'))
           ])->fs(1.6),
           CARDBODY([
-            FORM()->post()->add([
+            FORM()->id("formulario-login")->post()->add([
               TEXTINPUT(__("E-mail ou Nick"))->name("email")->from_post()->mb(1)->minlength(4)->required(),
               TEXTINPUT(__("Senha"))->name("senha")->from_post()->password()->minlength(6),
               FLEXROW(
                 DIV([I("lock")->mx(1),A(__("Esqueci minha senha"))->url(site_url('conta/esqueci-a-senha'))])
               )->content_end()->py(2),
               BUTTON([I("sign-in"),__("Entrar")])->submit()->primary()->mt(1)
+                ->class("g-recapcha")
+                ->attr('data-sitekey',$RECAPTHA_SITEKEY)/*
+                ->attr('data-onSubmit',"onSubmit")
+                ->attr('data-action',"submit")*/
             ])
           ])          
         ])
-      ])->style('min-height','600px')
+      ])->style('min-height','600px'),
+      SCRIPT("https://www.google.com/recaptcha/api.js?render=".$RECAPTHA_SITEKEY)->async()->defer(),
+      SCRIPT()->add( 
+      )
     )
   ])->bg_image(site_url("assets/img/fundo-login.png")), 
   MODAL(__("Erros"),draw_form_errors())->renderizable(has_form_errors())->modalshow(),

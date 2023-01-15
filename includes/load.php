@@ -7,10 +7,12 @@ $logado=LoginTool::is_logged();
 if($logado) {
   $info_usuario=Usuario::logged_user()->get_infos(['*']);
 }
-$titulo_pagina=$NOME_SITE;
 if(isset($titulo_pagina)) {
   $titulo_pagina=$NOME_SITE. ' - '. $titulo_pagina;
+} else { 
+$titulo_pagina=$NOME_SITE;
 }
+
 $page=PAGE($titulo_pagina)->configure()
     ->script("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js")
     ->css("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css")
