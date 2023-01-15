@@ -346,13 +346,14 @@ function fix_load_events() {
             });
         }
     });
+    /*
      $(".btn").hover(
       function() {
         $(this).addClass('shadow'); 
       }, function() {
         $(this).removeClass('shadow');
       }
-    );
+    );*/
     $(".hover-shadow").hover(
       function() {
         $(this).addClass('shadow-lg').css('cursor', 'pointer'); 

@@ -1,5 +1,9 @@
 <?php
 /** GERA AS MINIATURAS USANDO A CLASSE IMAGETOOL E TAMBEM CACHEIA NO DISCO :) */
+/* mostra todos os erros */
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once __DIR__.'/ImageTool.php';
 // funcao para enviar uma imagem generica para o navegador quando ocorre um erro
@@ -17,7 +21,7 @@ if(!$src) send_blank();
 
 // se o caminho da url for local do servidor, converte para o caminho absoluto no disco 
 if(count($ar=explode('uploads', $src))==2) {
-    $file=__DIR__.'/../original/uploads'.$ar[1];
+    $file=__DIR__.'/../uploads'.$ar[1];
     if(!file_exists($file) || is_dir($file)) send_blank();
     $src=$file;
 } 
@@ -36,8 +40,10 @@ if(file_exists($cached_file)) {
     $im=(new ImageTool($src));
     $im->resize_max($w,$h);
     $im->send_to_browser();
+ 
     // se a pasta do arquivo não existir, cria
-    if(!file_exists(dirname($cached_file))) mkdir(dirname($cached_file), 0777, true);
+    if($im->cacheable && !file_exists(dirname($cached_file)))
+         mkdir(dirname($cached_file), 0777, true);
     // salva a imagem no cache
     $im->saveJPEG($cached_file);
     

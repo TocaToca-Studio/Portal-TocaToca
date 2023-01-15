@@ -43,8 +43,8 @@ function draw_form_errors() {
  
 function thumb($url,$width=120,$height=false) {
     $q=["src"=>$url];
-    if($width) $q['width']=$width;
-    if($height) $q['height']=$height; 
+    if($width) $q['w']=$width;
+    if($height) $q['h']=$height; 
     return site_url("thumb/thumb.php?".http_build_query($q));
 }
 function formatar_data($mysql_date) { 

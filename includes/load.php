@@ -1,9 +1,8 @@
 <?php 
 require_once __DIR__.'/../core/config.inc.php';
-
+require_once __DIR__.'/static.php';
  
 
-$NOME_SITE="Portal Tocatoca";
 
 
 $page=PAGE($NOME_SITE)->configure()
@@ -14,3 +13,15 @@ $page=PAGE($NOME_SITE)->configure()
     ->script(site_url('assets/js/common.js?'.time()))
     ->icon(site_url("assets/favicon.png"))
     ->overflow_x_hidden();
+$page->head->add(
+    '<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTHLT7Q7YQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag(\'js\', new Date());
+    
+      gtag(\'config\', \'G-BTHLT7Q7YQ\');
+    </script>
+    '
+);

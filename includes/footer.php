@@ -11,9 +11,9 @@ $footer=[
                 T("Institucional")->h4()
             ])->grid(12,false,false,3), 
             COL([
-                T("Projetos")->h4()
-            ])->grid(12,false,false,3),
-
+                T("Projetos")->h4(),
+                
+            ])->grid(12,false,false,3), 
             COL([
                 T("Comunidade")->h4()
             ])->grid(12,false,false,3),
@@ -30,7 +30,7 @@ $footer=[
     DIV()->w_100()->add([
         CONTAINER([
             FLEXROW()->w_100()->content_between()->items_center()->py(3)
-            ->style("border-top",'1px solid black')
+            //->style("border-top",'1px solid black')
             ->add([
                 DIV("TocaToca Studio - Conteúdo livre de direitos autorais"),
                 DIV(

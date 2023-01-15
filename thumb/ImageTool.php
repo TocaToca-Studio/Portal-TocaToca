@@ -8,11 +8,11 @@
  */
 class ImageTool {
     private $image;
+    public $cacheable=false;
     /** aceita o caminho absoluto do arquivo ou o url da imagem na web */
-    function __construct($url_or_path) {
-
+    function __construct($url_or_path) { 
         $format = strtolower(pathinfo($url_or_path, PATHINFO_EXTENSION));
-        
+        $im=false;
         try {
             if ($format == "webp") $im = @imagecreatefromwebp($url_or_path);
             elseif ($format == "png") {
@@ -43,6 +43,8 @@ class ImageTool {
 
             // escreve a string em cima na esquerda
             imagestring($im, 5, 0, 0, "IMAGE NOT LOADED", $textcolor);
+        } else {
+            $this->cacheable=true;
         }
         $this->image=$im;
         //var_dump($im);

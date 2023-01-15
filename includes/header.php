@@ -3,6 +3,7 @@ require_once __DIR__.'/load.php';
 /** SLICK */
  
 $links_menu=[
+    "Home"=>site_url('home'),
     "Sobre nós"=>site_url('sobre-nos'),
     "Nossos projetos"=>site_url('projetos'),
     "Comunidade"=>site_url('comunidade'),
@@ -23,10 +24,9 @@ $navbar=DIV(
             A()->url(site_url("home"))->add(
                 IMAGE(site_url('assets/img/logo.png'),100)
             ),
-            $ul_menu->fill()->content_center(),
-
+            $ul_menu->fill()->content_center(), 
             A(["Apoiar ",I("heart")])
-                ->url($url)
+                ->url(site_url('apoie'))
                 ->class("text-danger")
                 ->nav_link()->h4()->px(2), 
         ])->content_between()->w_100()->items_center(),
