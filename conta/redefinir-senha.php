@@ -28,7 +28,9 @@ if($token) {
 $pass=@trim(_post('senha')); 
 $pass_cert=@trim(_post('confirmacao_senha'));
 if($pass) {
-
+  if(!Utils::validate_recaptcha(_post('g-recaptcha-response'),$RECAPTCHA_SECRETKEY)) {
+    form_error(__("Por favor complete o desafio do google! utilizamos este sistema para preverir robôs e spams indesejados."));
+  } 
   if(!has_form_errors() && strlen($pass)<6) {
     form_error("Sua senha é pequena demais.");
   }
@@ -53,6 +55,8 @@ $formulario=[
     TEXTINPUT(__("Confirmação de senha")) 
       ->name("confirmacao_senha")->from_post()
       ->password()->minlength(6)->required(), 
+      DIV()->class("g-recaptcha")
+              ->attr('data-sitekey',$RECAPTCHA_SITEKEY),
     BUTTON([
       I("envelope"),"&nbsp",
       __("Definir nova senha")] 

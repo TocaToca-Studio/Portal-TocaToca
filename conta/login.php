@@ -6,15 +6,11 @@ require_once __DIR__ . '/../includes/footer.php';
 
 
 $email=		filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
-$password=  _post('senha');
-$token=		_post('token'); 
-
-
+$password=  _post('senha'); 
+ 
 $redir=""; 
 
-if(count($_POST)) {  
-
-  
+if(count($_POST)) {   
   //	$is_token_valid=;
   if(!Utils::validate_recaptcha(_post('g-recaptcha-response'),$RECAPTCHA_SECRETKEY)) {
     form_error(__("Por favor complete o desafio do google! utilizamos este sistema para preverir robôs e spams indesejados."));
@@ -69,4 +65,4 @@ $page->add([
   ])->bg_image(site_url("assets/img/fundo-login.png")), 
   MODAL(__("Erros"),draw_form_errors())->renderizable(has_form_errors())->modalshow(),
   $footer
-])->script("https://www.google.com/recaptcha/api.js")->send();
+])->send();

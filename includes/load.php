@@ -20,7 +20,8 @@ $page=PAGE($titulo_pagina)->configure()
     ->css(site_url('assets/css/common.css?'.time()))
     ->script(site_url('assets/js/common.js?'.time()))
     ->icon(site_url("assets/favicon.png"))
-    ->overflow_x_hidden();
+    ->overflow_x_hidden()
+    ->script("https://www.google.com/recaptcha/api.js");
 
 
 

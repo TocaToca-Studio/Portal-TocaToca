@@ -3,46 +3,48 @@ require_once __DIR__.'/../core/config.inc.php';
 LoginTool::deny_logged_users();
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/footer.php';
-if(_post('senha')!=_post('confirmacao_senha')) {
-  form_error(__("As senhas inseridas não coincidem!"));
-}
 
-if(_post('nick') && !has_form_errors()) { 
-  /* TODO: implementar todos os possiveis caso de dados invalidos 
-   e fazer a verificação aqui no servidor */
-   
-  $nick=db()->escape(_post('nick'));
-  $nick_already_exists=db()->fetch_value("SELECT COUNT(*)>0 FROM usuario WHERE nick='$nick'");
-  if($nick_already_exists) {
-    form_error(__("Seu nickname já foi escolhido, por favor digite outro!"));
-  }
-
-  $email=db()->escape(_post('email'));
-  $email_already_exists=db()->fetch_value("SELECT COUNT(*)>0 FROM usuario WHERE email='$nick'");
-  if($email_already_exists) {
-    form_error([
-      __("O email digitado já foi cadastrado, por favor digite outro ou"),
-      A(__("recupere sua senha"))
-    ]);
-  }
-  //die(json_encode(form_errors()));
-  if(!has_form_errors()) {
-    $novo_id=Usuario::try_register($email,_post('senha'));
-    if($novo_id) {
-      (new Usuario($novo_id))->update_infos([
-        "nick"=>_post('nick'),
-        "nome"=>_post('nome'),
-       /* "clube"=>_post('clube'),
-        "cidade"=>_post('cidade'),*/
-      ]); 
-      Utils::redirect(site_url("comunidade"));
-    } else {
-      form_error("Ocorreu um erro ao realizar seu cadastro, por favor contate-nos!");
+if(count($_POST)) {
+  if(_post('senha')!=_post('confirmacao_senha')) {
+    form_error(__("As senhas inseridas não coincidem!"));
+  }else 
+  if(_post('nick') && !has_form_errors()) { 
+    /* TODO: implementar todos os possiveis caso de dados invalidos 
+    e fazer a verificação aqui no servidor */
+    
+    $nick=db()->escape(_post('nick'));
+    $nick_already_exists=db()->fetch_value("SELECT COUNT(*)>0 FROM usuario WHERE nick='$nick'");
+    if($nick_already_exists) {
+      form_error(__("Seu nickname já foi escolhido, por favor digite outro!"));
     }
-  } 
+
+    $email=db()->escape(_post('email'));
+    $email_already_exists=db()->fetch_value("SELECT COUNT(*)>0 FROM usuario WHERE email='$nick'");
+    if($email_already_exists) {
+      form_error([
+        __("O email digitado já foi cadastrado, por favor digite outro ou"),
+        A(__("recupere sua senha"))
+      ]);
+    }
+    //die(json_encode(form_errors()));
+    if(!has_form_errors()) {
+      $novo_id=Usuario::try_register($email,_post('senha'));
+      if($novo_id) {
+        (new Usuario($novo_id))->update_infos([
+          "nick"=>_post('nick'),
+          "nome"=>_post('nome'),
+        /* "clube"=>_post('clube'),
+          "cidade"=>_post('cidade'),*/
+        ]); 
+        Utils::redirect(site_url("comunidade"));
+      } else {
+        form_error("Ocorreu um erro ao realizar seu cadastro, por favor contate-nos!");
+      }
+    } 
+
+  }
 
 }
-
 
 
 $page->add([
@@ -81,6 +83,8 @@ $page->add([
               TEXTINPUT(__("Confirmação de senha")) 
                 ->name("confirmacao_senha")->from_post()
                 ->password()->minlength(6)->required(), 
+              DIV()->class("g-recaptcha")
+                ->attr('data-sitekey',$RECAPTCHA_SITEKEY),
               BUTTON(__("Finalizar cadastro!"))->submit()->primary()->mt(1)
             ])->flexcol()->gap(4)
           ])

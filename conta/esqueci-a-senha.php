@@ -6,14 +6,15 @@ require_once __DIR__ . '/../includes/footer.php';
 
 
 $email=filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL); 
-$token=_post('token');  
+ 
 $success=false;
 $error=false; 
 if(count($_POST)) {
-	if($email) {   
-    $is_token_valid=true;//Utils::validate_recaptcha($token,$RECAPTHA_SECRET_KEY);
-
-    if($is_token_valid && Usuario::send_reset_password_email($email)) {
+  if(!Utils::validate_recaptcha(_post('g-recaptcha-response'),$RECAPTCHA_SECRETKEY)) {
+    form_error(__("Por favor complete o desafio do google! utilizamos este sistema para preverir robôs e spams indesejados."));
+  } else
+	if($email) {    
+    if(Usuario::send_reset_password_email($email)) {
         $success=__("O email foi enviado, verifique sua caixa de entrada.");
     } else {
       form_error(__("O Email de redefinição não pode ser enviado. Verifique o endereço ou tente novamente mais tarde."));
@@ -30,7 +31,9 @@ $formulario=[
     TEXTINPUT(__("E-mail"))->name("email")->from_post()->mb(1), 
     FLEXROW(
       DIV([I("user")->mx(1),A(__("Voltar à tela de login"))->url(site_url('conta/cadastro'))])
-    )->content_end()->py(2), 
+    )->content_end()->py(2),
+    DIV()->class("g-recaptcha")
+              ->attr('data-sitekey',$RECAPTCHA_SITEKEY), 
     BUTTON([
       I("envelope"),"&nbsp",
       __("Enviar e-mail")]

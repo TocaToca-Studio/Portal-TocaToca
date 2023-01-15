@@ -27,13 +27,22 @@ $(document).ready(function() {
         return false;
     }); 
 
-    $('form.blockcaptcha').submit(function() {
+    $('form.blockcaptcha').submit(function(e) {
       let rec=$(this).find("textarea[name=g-recaptcha-response]");
       if(rec && !rec.val().length>0) {
         alert('Por favor complete o desafio do google antes de continuar!');
+        e.preventDefault();
+        return false;
       }
     });
+
+    $('#botao-cookies').click(function() {
+      $.get('/ajax/aceita-cookies').done(function() {
+        $("#alerta-cookies").hide();
+      });
+    });
 });
+
 
 
 function open_sidemenu() {
