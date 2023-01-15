@@ -43,6 +43,17 @@ $(document).ready(function() {
     });
 });
 
+$(".latin_letters").on("keypress", function(event) {
+  let englishAlphabetAndWhiteSpace = /^[-@./#&+\w\s]*$/;
+      let key = String.fromCharCode(event.which);
+      if (event.keyCode == 8 || event.keyCode == 231 || event.keyCode == 39 || englishAlphabetAndWhiteSpace.test(key)) {
+        return true;
+      }
+      return false;
+  });
+$('.latin_letters').on("paste", function(e) {
+    e.preventDefault();
+});
 
 
 function open_sidemenu() {

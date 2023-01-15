@@ -46,7 +46,7 @@ if(count($_POST)) {
 
 }
 
-
+$page->script("/conta/cadastro.js");
 $page->add([
   $header,
   PAGE_MAIN([
@@ -55,8 +55,11 @@ $page->add([
         CARD()->shadow()->bg_white()->add([
           CARDHEADER(T(__("Insira seus dados de cadastro:"))->fs(1.6)),
           CARDBODY([
-            FORM()->action((Utils::self_url()))->post()
+            FORM()->id("form-cadastro")->action((Utils::self_url()))->post()
             ->add([
+              TEXTINPUT(__("Seu nome"))->class("latin_letters")
+                ->name("nome")->from_post()
+                ->minlength(3)->required(),
               INPUTGROUP(
                 T('@'),
                 TEXTINPUT(__("Nick de usuário")) 
@@ -66,10 +69,6 @@ $page->add([
               TEXTINPUT(__("Email"))->email()
                 ->name("email")->from_post()
                 ->minlength(4)->required(),
-
-              TEXTINPUT(__("Seu nome"))
-                ->name("nome")->from_post()
-                ->minlength(3)->required(),
               /*
               TEXTINPUT(__("Nome do seu clube")) 
               ->name("clube")->from_post(),

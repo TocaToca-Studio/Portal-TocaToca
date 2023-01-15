@@ -177,8 +177,8 @@ class Utils {
         $ago->setTimestamp(intval($timestamp));
         $diff = $now->diff($ago);
     
-        $diff->w = floor($diff->d / 7);
-        $diff->d -= $diff->w * 7;
+        $diff_w = floor($diff->d / 7);
+        $diff->d -= $diff_w * 7;
     
         $string_single = array(
             'y' => 'ano',
