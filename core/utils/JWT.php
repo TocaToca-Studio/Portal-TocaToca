@@ -88,8 +88,8 @@ class JWT {
             'alg' => "HS256"
         ];
         $payload=[
-            //      'exp' => (new DateTime("now"))->getTimestamp() + $EXPIRATION_SECONDS,
-                    'uid' => strval($user_id)
+                'exp' =>  time() + (3600 * 24 * 15), // token de login expira em 15 dias
+                'uid' => strval($user_id)
         ];
         return JWT::generate_token($header,$payload,$secret_key);
     }
@@ -129,10 +129,11 @@ class JWT {
 
         if(!$token_data) {return false; }
 
-        // verificacao de expiração, implementar
-        //  if(intval($token_data["payload"]["exp"])>(new DateTime("now"))->getTimestamp()) {
-        //      return false;
-        //  }
+        
+          if(time()>intval($token_data["payload"]["exp"])) {
+            // token expirado
+            return false;
+          }
 
         $header=$token_pieces[0];
         $payload=$token_pieces[1];
