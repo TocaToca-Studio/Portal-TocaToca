@@ -21,11 +21,18 @@ $(document).ready(function() {
           }).done(function(data) {
             $("#nl-response").html(JSON.parse(data).message);
             $("#modal-nl").modal('show');
-          }); 
+          });  
         e.preventDefault();
         this.reset();
         return false;
     }); 
+
+    $('form.blockcaptcha').submit(function() {
+      let rec=$(this).find("textarea[name=g-recaptcha-response]");
+      if(rec && !rec.val().length>0) {
+        alert('Por favor complete o desafio do google antes de continuar!');
+      }
+    });
 });
 
 

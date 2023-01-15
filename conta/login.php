@@ -12,11 +12,13 @@ $token=		_post('token');
 
 $redir=""; 
 
-if(count($_POST)) { 
-  die(json_encode($_POST));
-  //	$is_token_valid=Utils::validate_recaptcha($token,$RECAPTHA_SECRET_KEY);
+if(count($_POST)) {  
 
-  if($email && $password) { 
+  
+  //	$is_token_valid=;
+  if(!Utils::validate_recaptcha(_post('g-recaptcha-response'),$RECAPTCHA_SECRETKEY)) {
+    form_error(__("Por favor complete o desafio do google! utilizamos este sistema para preverir robôs e spams indesejados."));
+  } else if($email && $password) { 
 		$is_token_valid=true;
 		$id=Usuario::try_login($email,$password);
 		
@@ -41,7 +43,7 @@ LoginTool::deny_logged_users(site_url('comunidade'));
 $page->add([
   $header,
   PAGE_MAIN([
-    CONTAINER(
+    CONTAINER([
       FLEXROW()->w_100()->center()->add([
         CARD()->shadow()->bg_white()->add([
           CARDHEADER([
@@ -49,26 +51,22 @@ $page->add([
             A(__("cadastre-se"))->url(site_url('conta/cadastro'))
           ])->fs(1.6),
           CARDBODY([
-            FORM()->id("formulario-login")->post()->add([
+            FORM()->id("formulario-login")->class("blockcaptcha")->post()->add([
               TEXTINPUT(__("E-mail ou Nick"))->name("email")->from_post()->mb(1)->minlength(4)->required(),
               TEXTINPUT(__("Senha"))->name("senha")->from_post()->password()->minlength(6),
               FLEXROW(
                 DIV([I("lock")->mx(1),A(__("Esqueci minha senha"))->url(site_url('conta/esqueci-a-senha'))])
               )->content_end()->py(2),
+              DIV()->class("g-recaptcha")
+              ->attr('data-sitekey',$RECAPTCHA_SITEKEY),
               BUTTON([I("sign-in"),__("Entrar")])->submit()->primary()->mt(1)
-                ->class("g-recapcha")
-                ->attr('data-sitekey',$RECAPTHA_SITEKEY)/*
-                ->attr('data-onSubmit',"onSubmit")
-                ->attr('data-action',"submit")*/
             ])
           ])          
         ])
-      ])->style('min-height','600px'),
-      SCRIPT("https://www.google.com/recaptcha/api.js?render=".$RECAPTHA_SITEKEY)->async()->defer(),
-      SCRIPT()->add( 
-      )
-    )
+      ])->style('min-height','600px'), 
+      
+    ])
   ])->bg_image(site_url("assets/img/fundo-login.png")), 
   MODAL(__("Erros"),draw_form_errors())->renderizable(has_form_errors())->modalshow(),
   $footer
-])->send();
+])->script("https://www.google.com/recaptcha/api.js")->send();

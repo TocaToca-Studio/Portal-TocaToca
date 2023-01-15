@@ -212,4 +212,15 @@ class Utils {
         return $parts ? implode(', ', $parts) . ' '.__('atrás') : __('agora mesmo');
     }
     
+    public static function validate_recaptcha($recaptcha_response,$secret) {
+        $resposta = @json_decode(@file_get_contents(
+            "https://www.google.com/recaptcha/api/siteverify?".http_build_query([
+                "secret"=>$secret,
+                "response"=>$recaptcha_response,
+                "remoteip"=>$_SERVER['REMOTE_ADDR']
+            ])
+        ),true);
+        return @$resposta['success'] ? true : false; 
+    }
+    
 }
