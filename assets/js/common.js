@@ -27,3 +27,11 @@ $(document).ready(function() {
         return false;
     }); 
 });
+
+
+function open_sidemenu() {
+  $(".sidemenu-overlay").addClass("show");
+}
+function close_sidemenu() {
+  $(".sidemenu-overlay").removeClass("show");
+}

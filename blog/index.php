@@ -6,10 +6,10 @@ $div_noticias=ROW();
 
 foreach($noticias as $id=>$n) {
     $div_noticias->add(
-        COL()->grid(12,12,4,3)->add([
-            A()->url(site_url('blog/noticia?id='.$id))->btn()
+        COL()->grid(12,6,4,3)->add([
+            A()->url(site_url('blog/noticia?id='.$id))->btn()->w_100()->px(1)->py(3)
             ->add(
-                CARD()->add([
+                CARD()->w_100()->add([
                     IMG($n['thumb'],"100%","140")->img_cover(),
                     CARDFOOTER([
                         DIV($n['titulo'])->bold(),

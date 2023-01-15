@@ -1,4 +1,5 @@
 <?php
+$titulo_pagina="Nossos projetos";
 require __DIR__.'/includes/header.php';
 require __DIR__.'/includes/footer.php';
 
