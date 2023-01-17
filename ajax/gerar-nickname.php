@@ -21,6 +21,7 @@ $sufixos=[
 ];
 
 $nick=strtolower($nome);
+$nick=Utils::remove_accents($nick);
 $nick=strtr($nick,[
     " "=>"", 
 ]);
