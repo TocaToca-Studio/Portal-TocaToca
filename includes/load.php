@@ -6,11 +6,31 @@ $info_usuario=[];
 $logado=LoginTool::is_logged();
 if($logado) {
   $info_usuario=Usuario::logged_user()->get_infos(['*']);
+
+  // se nao confirmou email, direciona para a página de confirmação de e-mail
+  if(!$info_usuario['confirmou_email']) {
+    if(strpos(Utils::self_url(),"confirmar-email")==false) {
+      $nick=$info_usuario['nick'];
+      Utils::redirect(
+        site_url("conta/confirmar-email")
+          .'?'.http_build_query([
+            'nick'=>$nick,
+            'assinatura'=>gera_assinatura($nick)
+          ])
+        );
+    }
+  }
 }
 if(isset($titulo_pagina)) {
   $titulo_pagina=$NOME_SITE. ' - '. $titulo_pagina;
 } else { 
 $titulo_pagina=$NOME_SITE;
+}
+function gera_assinatura($dados):int {
+  return crc32(json_encode($dados).MASTER_PASSWORD);
+}
+function verifica_assinatura($dados,$assinatura):bool {
+  return gera_assinatura($dados)==intval($assinatura);
 }
 
 $page=PAGE($titulo_pagina)->configure()

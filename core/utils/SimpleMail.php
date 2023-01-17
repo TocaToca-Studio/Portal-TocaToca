@@ -142,7 +142,7 @@ class SimpleMail {
 
 		$commands = array_merge($commands, array(
 			'DATA' => 354,
-			'Subject: ' . $this->subject . "\r\n" .
+			'Subject: ' . "=?UTF-8?B?".base64_encode($this->subject)."?=" . "\r\n" .
 				'To: ' . implode(', ', $this->to) . "\r\n" .
 				'From: ' . $this->from . "\r\n" .
                 'Reply-To: ' . $this->from . "\r\n" .

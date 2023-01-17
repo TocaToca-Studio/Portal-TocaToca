@@ -56,14 +56,25 @@ class Usuario extends Model {
             return $id;
         } else {return false;}
     }
+    public static function get_userid_by_nick($nick) {
+        $nick=db()->escape($nick);
+        return db()->fetch_value(
+            "SELECT `id` FROM usuario WHERE nick='$nick'"
+        );
+    }
+    public static function get_userid_by_email($email) {
+        $email=db()->escape($email);
+        return db()->fetch_value(
+            "SELECT `id` FROM usuario WHERE email='$email'"
+        );
+    }
     /** 
      * envia um email de redefinição de senha para o usuário
      * se o email não for encontrado no sistema então retorna false.
      */
     public static function send_reset_password_email($email) {
-        $id=db()->fetch_value(
-            "SELECT `id` FROM usuario WHERE email='$email'"
-        );
+        $email=db()->escape($email);
+        $id=Usuario::get_userid_by_email($email);
         /* não encontrou o usuário retorna false */
         if(!$id) return false;
 
@@ -76,13 +87,47 @@ class Usuario extends Model {
         $res->to($user_data['email'],$user_data['nome']);
         $res->subject("Redefinir senha")
                 ->message(
-                 " Você está recebendo este e-mail porque solicitou a redefinição da senha para sua conta.
+                 __(" Você está recebendo este e-mail porque solicitou a redefinição da senha para sua conta.
                   Se você não pediu essa alteração, pode ignorar este e-mail tranquilamente.<br/>
-                  Para escolher uma senha nova e concluir sua solicitação, acesse o link abaixo:".
+                  Para escolher uma senha nova e concluir sua solicitação, acesse o link abaixo:").
                 '<br><a href="'.site_url('conta/redefinir-senha?',true).http_build_query(["token"=>LoginTool::generate_access_token($id)]).'">'.
-                'RECUPERAR SENHA'.'</a>')
+                __('RECUPERAR SENHA').'</a>')
                 ->send(); 
        
+        return $res; 
+    }  
+    /** 
+     * envia um email de confirmação para o usuário
+     * se o nick do usuario não for encontrado no sistema então retorna false.
+     */
+    public static function send_mail_confirmation($nick) {
+        $nick=db()->escape($nick); 
+        $id=Usuario::get_userid_by_nick($nick);
+        /* não encontrou o usuário retorna false */
+        if(!$id) return false;      
+        $user=(new Usuario($id));
+        /* obtem as informacoes da tabela do usuario */
+        $user_data=$user->get_infos([
+            "nome","email","ultima_confirmacao"
+        ]);  
+        // se ainda nao se passaram 15 min desde a ultima confirmacao
+        if(strtotime($user_data['ultima_confirmacao'])>(time()-(5*60))) {
+            return true; // simplesmente não envia o mesmo email novamente.
+        }
+        $res=simplemail();
+        $res->to($user_data['email'],$user_data['nome']);
+        $res->subject("Quase lá, ".$user_data['nome']." :)")
+                ->message(
+                    "Oi ".$user_data['nome']." <br>
+                    Você está a um passo de se fazer parte do grupo especial de pessoas que apoiam e acreditam em nossos projetos.
+                    <br>
+                    Por favor confirme seu endereço de email clicando no link abaixo e venha construir essa história conosco!".
+                '<br><a href="'.site_url('conta/confirmar-email?',true).http_build_query(["token"=>LoginTool::generate_access_token($id)]).'">'.
+                'Confirmar seu email'.'</a>')
+                ->send(); 
+        if($res) {
+            db()->query("UPDATE usuario SET ultima_confirmacao=NOW() WHERE id=$id");
+        }
         return $res; 
     }  
 }

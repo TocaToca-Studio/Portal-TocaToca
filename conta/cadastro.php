@@ -23,7 +23,7 @@ if(count($_POST)) {
     if($email_already_exists) {
       form_error([
         __("O email digitado já foi cadastrado, por favor digite outro ou"),
-        A(__("recupere sua senha"))
+        A(__("recupere sua senha"))->url(site_url("conta/esqueci-a-senha"))
       ]);
     }
     //die(json_encode(form_errors()));
@@ -36,7 +36,13 @@ if(count($_POST)) {
         /* "clube"=>_post('clube'),
           "cidade"=>_post('cidade'),*/
         ]); 
-        Utils::redirect(site_url("comunidade"));
+        Utils::redirect(
+          site_url("conta/confirmar-email")
+          .'?'.http_build_query([
+            'nick'=>_post('nick'),
+            'assinatura'=>gera_assinatura($nick)
+          ])
+        );
       } else {
         form_error("Ocorreu um erro ao realizar seu cadastro, por favor contate-nos!");
       }
@@ -46,7 +52,7 @@ if(count($_POST)) {
 
 }
 
-$page->script("/conta/cadastro.js");
+$page->script("/conta/cadastro.js?v2");
 $page->add([
   $header,
   PAGE_MAIN([

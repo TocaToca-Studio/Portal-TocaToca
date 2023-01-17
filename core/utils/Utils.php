@@ -179,6 +179,9 @@ class Utils {
     
         $diff_w = floor($diff->d / 7);
         $diff->d -= $diff_w * 7;
+        $diff=(array) $diff;
+        $diff['w']=$diff_w;
+        $diff=(object) $diff;
     
         $string_single = array(
             'y' => 'ano',
