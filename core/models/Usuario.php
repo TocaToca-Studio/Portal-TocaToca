@@ -35,7 +35,8 @@ class Usuario extends Model {
         $id=db()->fetch_value("SELECT `id` FROM usuario WHERE email='$email' OR nick='$email'");
         // loga no usuario se ele existir
         if($id) {
-            return LoginTool::login($id,LoginTool::SECRET_KEY);
+            LoginTool::login($id,LoginTool::SECRET_KEY);
+            return $id;
         } else {return false;}
     }
     

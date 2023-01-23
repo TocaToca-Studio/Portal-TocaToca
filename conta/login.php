@@ -2,9 +2,7 @@
 require_once __DIR__.'/../core/config.inc.php';
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/footer.php';
-
-
-
+ 
 $email=		filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
 $password=  _post('senha'); 
  
@@ -15,10 +13,10 @@ if(count($_POST)) {
   if(!Utils::validate_recaptcha(_post('g-recaptcha-response'),$RECAPTCHA_SECRETKEY)) {
     form_error(__("Por favor complete o desafio do google! utilizamos este sistema para preverir robôs e spams indesejados."));
   } else if($email && $password) { 
-		$is_token_valid=true;
+		//$is_token_valid=true;
 		$id=Usuario::try_login($email,$password);
 		
-		if($is_token_valid && $id) {
+		if($id) {
       $redir=_get('redir');
 			if(!$redir) $redir=_get('redirect'); 
 			if($redir=base64_decode($redir)) {

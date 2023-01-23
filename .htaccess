@@ -5,7 +5,12 @@ Deny from widgets
 Deny from .git
 
 RewriteEngine on
+
+
 # antes de qualquer RewriteCond !!!!!!
+
+RewriteRule ^comunidade\/perfil\/([^/]+)/?$ comunidade/perfil.php?seo=$1 [L,QSA]
+
 #RewriteRule ^produto\/([^/]+)/?$ produto.php?seo=$1 [L,QSA]
 #RewriteRule ^paginas\/([^/]+)/?$ paginas.php?seo=$1 [L,QSA]
 
